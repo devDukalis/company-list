@@ -1,0 +1,13 @@
+@font-face {
+  font-display: swap;
+  font-family: "PT-Sans-Regular";
+  font-weight: 400;
+  src:
+    url("/src/assets/fonts/PT-Sans-Regular.woff2") format("woff2"),
+    url("/src/assets/fonts/PT-Sans-Regular.woff") format("woff"),
+    url("/src/assets/fonts/PT-Sans-Regular.ttf") format("ttf");
+}
+
+#root {
+  font-family: "PT-Sans-Regular", serif;
+}

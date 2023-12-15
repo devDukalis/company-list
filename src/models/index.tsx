@@ -1,14 +1,18 @@
-export interface Company {
-  id: number;
-  title: string;
-  address: string;
-  employeesCounter: number;
-}
+export type ID = string | number;
 
 export interface Employee {
-  id: number;
+  id: ID;
   firstName: string;
   lastName: string;
   employment: string;
-  companyId: number;
+  companyId: ID;
 }
+
+export interface Company {
+  id: ID;
+  title: string;
+  address: string;
+  staff: Employee[];
+}
+
+export type AddCompanyPayload = Omit<Company, "id">;
