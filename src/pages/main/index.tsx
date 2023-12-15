@@ -4,7 +4,6 @@ import MainTable from "@/components/MainTable";
 
 const PageWrapper = styledComponent.section`
   padding: 50px;
-  background: sunny;
   width: 100vw;
   height: 100vh;
 `;

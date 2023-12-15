@@ -16,3 +16,8 @@ export interface Company {
 }
 
 export type AddCompanyPayload = Omit<Company, "id">;
+
+export type AddEmployeePayload = {
+  employee: Omit<Employee, "id">;
+  companyId: ID;
+};
