@@ -1,16 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { AddCompanyPayload, AddEmployeePayload, Company, Employee } from "@/models";
+import { AddCompanyPayload, AddEmployeePayload, Company, Employee, CompaniesState } from "@/models";
 import { generateUniqueKey } from "@/utils/generateUniqueKey";
+import { companiesInitialData } from "@/temp-data";
 
-interface CompanyState {
-  allCompanies: Company[];
-  selectedCompanies: Company[];
-  selectedEmployees: Employee[];
-}
-
-const initialState: CompanyState = {
-  allCompanies: [],
+const initialState: CompaniesState = {
+  allCompanies: companiesInitialData,
   selectedCompanies: [],
   selectedEmployees: [],
 };

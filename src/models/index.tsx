@@ -15,6 +15,12 @@ export interface Company {
   staff: Employee[];
 }
 
+export interface CompaniesState {
+  allCompanies: Company[];
+  selectedCompanies: Company[];
+  selectedEmployees: Employee[];
+}
+
 export type AddCompanyPayload = Omit<Company, "id">;
 
 export type AddEmployeePayload = {
