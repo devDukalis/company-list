@@ -1,23 +1,35 @@
 import { useAppSelector } from "@/redux/hooks";
-import { allCompaniesInState } from "@/redux/selectors";
+import { selectedCompaniesInState } from "@/redux/selectors";
 
-import CompanyRow from "@/components/CompaniesTable/CompanyRow";
 import Table from "@/components/Table";
 import StaffHeader from "@/components/StaffTable/StaffHeader";
 import StaffRow from "@/components/StaffTable/StaffRow";
+import Row from "@/components/Table/Row";
+import Cell from "@/components/Table/Cell";
 
 const StaffTable = () => {
-  const companiesArray = useAppSelector(allCompaniesInState);
+  const selectedCompanies = useAppSelector(selectedCompaniesInState);
 
   return (
     <Table>
       <StaffHeader />
-      <tbody>
-        {companiesArray.map((company) => (
-          <StaffRow company={company} key={`${company.id}-main`} />
-        ))}
-        <CompanyRow />
-      </tbody>
+
+      {selectedCompanies.map((company) => (
+        <tbody key={company.id}>
+          <Row>
+            <Cell />
+            <Cell>{company.title}</Cell>
+          </Row>
+          {company?.staff?.map((employee) => (
+            <StaffRow
+              employee={employee}
+              companyId={company.id}
+              key={`${employee.id}-${company.id}-main`}
+            />
+          ))}
+          <StaffRow companyId={company.id} />
+        </tbody>
+      ))}
     </Table>
   );
 };

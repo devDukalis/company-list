@@ -1,41 +1,45 @@
 import { ChangeEvent } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { allCompaniesInState, selectedCompaniesInState } from "@/redux/selectors";
+import { selectedCompaniesInState, selectedEmployeesInState } from "@/redux/selectors";
 import {
-  deleteSelectedCompanies,
-  deselectAllCompanies,
-  selectAllCompanies,
+  deleteSelectedEmployees,
+  deselectAllEmployees,
+  selectAllEmployees,
 } from "@/redux/features/companySlice";
 
 import Row from "@/components/Table/Row";
 import Cell from "@/components/Table/Cell";
 
 const StaffHeader = () => {
-  const companiesArray = useAppSelector(allCompaniesInState);
   const selectedCompanies = useAppSelector(selectedCompaniesInState);
+  const selectedEmployees = useAppSelector(selectedEmployeesInState);
   const dispatch = useAppDispatch();
 
-  const checkboxChecked = companiesArray.length === selectedCompanies.length;
+  const totalEmployeesAmount = selectedCompanies.reduce(
+    (prev, curr) => prev + curr.staff.length,
+    0,
+  );
+  const checkboxChecked = selectedEmployees.length === totalEmployeesAmount;
 
   const checkboxClick = (e: ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
     if (checked) {
-      dispatch(selectAllCompanies());
+      dispatch(selectAllEmployees());
     } else {
-      dispatch(deselectAllCompanies());
+      dispatch(deselectAllEmployees());
     }
   };
 
   const deleteClick = () => {
-    dispatch(deleteSelectedCompanies());
+    dispatch(deleteSelectedEmployees());
   };
 
   return (
     <thead>
       <Row>
         <Cell>
-          {companiesArray.length > 1 && (
+          {totalEmployeesAmount > 1 && (
             <input type="checkbox" checked={checkboxChecked} onChange={checkboxClick} />
           )}
         </Cell>
@@ -43,7 +47,7 @@ const StaffHeader = () => {
         <Cell>Фамилия</Cell>
         <Cell>Должность</Cell>
         <Cell>
-          {selectedCompanies.length > 0 && (
+          {selectedEmployees.length > 0 && (
             <button type="button" onClick={deleteClick}>
               Удалить
             </button>

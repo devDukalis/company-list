@@ -1,73 +1,80 @@
 import { useState, ChangeEvent, FC } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { selectedCompaniesInState } from "@/redux/selectors";
+import { selectedEmployeesInState } from "@/redux/selectors";
 import {
-  addNewCompany,
-  deselectCompany,
-  selectCompany,
-  updateCompany,
+  addEmployee,
+  deselectEmployee,
+  selectEmployee,
+  updateEmployee,
 } from "@/redux/features/companySlice";
 
-import { Company } from "@/models";
+import { ID, Employee } from "@/models";
+import useForm from "@/hooks/useForm";
 
 import Row from "@/components/Table/Row";
 import Cell from "@/components/Table/Cell";
 import EditableCell from "@/components/Table/EditableCell";
 
 export interface Props {
-  company?: Company;
+  employee?: Employee;
+  companyId: ID;
 }
 
-const StaffRow: FC<Props> = ({ company }) => {
-  const selectedCompanies = useAppSelector(selectedCompaniesInState);
+export interface EmployeeForm {
+  firstName: string;
+  lastName: string;
+  employment: string;
+}
+
+const StaffRow: FC<Props> = ({ employee, companyId }) => {
+  const selectedWorkers = useAppSelector(selectedEmployeesInState);
   const dispatch = useAppDispatch();
 
-  const isSelected = !!selectedCompanies.find((selected) => selected.id === company?.id);
+  const isSelected = !!selectedWorkers.find((selected) => selected.id === employee?.id);
+  const isAddWorkerRow = !employee;
 
-  const isAddCompanyRow = !company;
-  const initialState = {
-    title: company?.title ? company.title : "",
-    address: company?.address ? company.address : "",
-  };
+  const {
+    values: state,
+    changeFieldValue,
+    resetForm,
+  } = useForm<EmployeeForm>({
+    firstName: employee?.firstName ? employee.firstName : "",
+    lastName: employee?.lastName ? employee.lastName : "",
+    employment: employee?.employment ? employee.employment : "",
+  });
 
-  const [state, setState] = useState(initialState);
-  const [isEditMode, setEditMode] = useState<boolean>(isAddCompanyRow);
-
-  const changeCompanyField = (fieldName: string) => {
-    return (e: ChangeEvent<HTMLInputElement>) => {
-      setState((prev) => ({ ...prev, [fieldName]: e.target.value }));
-    };
-  };
+  const [isEditMode, setEditMode] = useState<boolean>(isAddWorkerRow);
 
   const checkboxClickHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked;
-    if (isAddCompanyRow) return;
+    if (isAddWorkerRow) return;
     if (value) {
-      dispatch(selectCompany(company));
+      dispatch(selectEmployee(employee));
     } else {
-      dispatch(deselectCompany(company));
+      dispatch(deselectEmployee(employee));
     }
   };
 
-  const buttonsCellClick = () => {
-    if (isAddCompanyRow) {
-      const newCompany = {
-        title: state.title,
-        address: state.address,
-        staff: [],
+  const saveClickHandler = () => {
+    if (isAddWorkerRow) {
+      const toSend = {
+        employee: {
+          companyId,
+          ...state,
+        },
+        companyId,
       };
-      dispatch(addNewCompany(newCompany));
-      setState(initialState);
+      dispatch(addEmployee(toSend));
+      resetForm();
       return;
     }
     if (isEditMode) {
-      const updatedCompany = {
-        ...company,
-        title: state.title,
-        address: state.address,
+      const updatedEmployee = {
+        ...employee,
+        ...state,
       };
-      dispatch(updateCompany(updatedCompany));
+      dispatch(updateEmployee(updatedEmployee));
       setEditMode(false);
     } else {
       setEditMode(true);
@@ -77,22 +84,26 @@ const StaffRow: FC<Props> = ({ company }) => {
   return (
     <Row selected={isSelected}>
       <Cell>
-        {!isAddCompanyRow && (
+        {!isAddWorkerRow && (
           <input type="checkbox" checked={isSelected} onChange={checkboxClickHandler} />
         )}
       </Cell>
       <EditableCell
         isEditMode={isEditMode}
-        value={state.title}
-        onChange={changeCompanyField("title")}
+        value={state.firstName}
+        onChange={changeFieldValue("firstName")}
       />
-      <Cell>{company?.staff?.length ?? "0"}</Cell>
       <EditableCell
         isEditMode={isEditMode}
-        value={state.address}
-        onChange={changeCompanyField("address")}
+        value={state.lastName}
+        onChange={changeFieldValue("lastName")}
       />
-      <Cell onClick={buttonsCellClick}>{isEditMode ? "Сохранить" : "Редактировать"}</Cell>
+      <EditableCell
+        isEditMode={isEditMode}
+        value={state.employment}
+        onChange={changeFieldValue("employment")}
+      />
+      <Cell onClick={saveClickHandler}>{isEditMode ? "Сохранить" : "Редактировать"}</Cell>
     </Row>
   );
 };
