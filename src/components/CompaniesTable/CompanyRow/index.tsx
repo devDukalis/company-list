@@ -19,6 +19,7 @@ import ButtonsCell from "@/components/ButtonsCell";
 
 export interface Props {
   company?: Company;
+  id?: string | number;
 }
 
 export interface CompanyForm {
@@ -26,7 +27,7 @@ export interface CompanyForm {
   address: string;
 }
 
-const CompanyRow: FC<Props> = ({ company }) => {
+const CompanyRow: FC<Props> = ({ company, id }) => {
   const selectedCompanies = useAppSelector(selectedCompaniesInState);
   const dispatch = useAppDispatch();
 
@@ -46,7 +47,9 @@ const CompanyRow: FC<Props> = ({ company }) => {
 
   const checkboxClickHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked;
+
     if (isAddCompanyRow) return;
+
     if (value) {
       dispatch(selectCompany(company));
     } else {
@@ -64,6 +67,7 @@ const CompanyRow: FC<Props> = ({ company }) => {
       resetForm();
       return;
     }
+
     if (isEditMode) {
       const updatedCompany = {
         ...company,
@@ -78,21 +82,36 @@ const CompanyRow: FC<Props> = ({ company }) => {
 
   return (
     <Row selected={isSelected}>
-      <Cell>
+      <Cell
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "20px",
+        }}>
         {!isAddCompanyRow && (
-          <input type="checkbox" checked={isSelected} onChange={checkboxClickHandler} />
+          <input
+            type="checkbox"
+            checked={isSelected}
+            onChange={checkboxClickHandler}
+            id={`company-select-checkbox-${id}`}
+          />
         )}
       </Cell>
+
       <EditableCell
         isEditMode={isEditMode}
         value={state.title}
         onChange={changeFieldValue("title")}
+        placeholder="Название"
+        id={`company-title-edit-${id}`}
       />
       <Cell>{company?.staff?.length}</Cell>
       <EditableCell
         isEditMode={isEditMode}
         value={state.address}
         onChange={changeFieldValue("address")}
+        placeholder="Адрес"
+        id={`company-address-edit-${id}`}
       />
       <ButtonsCell isEditMode={isEditMode} onClick={buttonsCellClick} />
     </Row>

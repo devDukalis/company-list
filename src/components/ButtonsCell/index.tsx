@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import styledComponent from "styled-components";
+import { default as styled } from "styled-components";
 
 import Cell from "@/components/Table/Cell";
 
@@ -12,13 +12,13 @@ export interface Props {
   onClick: () => void;
 }
 
-const ButtonsWrapper = styledComponent.div`
+const ButtonsWrapper = styled.div`
   cursor: pointer;
 `;
 
 const ButtonsCell: FC<Props> = ({ isEditMode, onClick }) => {
   return (
-    <Cell align="center">
+    <Cell>
       <ButtonsWrapper onClick={onClick}>
         {isEditMode ? (
           <SaveIcon width="20px" height="20px" />

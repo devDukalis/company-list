@@ -1,11 +1,12 @@
-import styledComponent from "styled-components";
+import { default as styled } from "styled-components";
 
 import Row from "@/components/Table/Row";
 
-const HeaderRow = styledComponent(Row)`
+const HeaderRow = styled(Row)`
   border: 0px;
-  background-color: rgb(252, 251, 248);
-  color: rgb(128, 111, 107);
+  background-color: #2a7cc4;
+  color: rgb(255, 255, 255);
+  height: 80px;
 `;
 
 export default HeaderRow;

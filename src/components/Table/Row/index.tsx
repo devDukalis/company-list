@@ -1,7 +1,7 @@
-import styledComponent from "styled-components";
+import { default as styled } from "styled-components";
 
-const Row = styledComponent("tr")<{ selected?: boolean }>`
-  background-color: ${(props) => (props.selected ? "#EFEADD" : "inherit")};
+const Row = styled.tr<{ selected?: boolean }>`
+  background-color: ${({ selected }) => (selected ? "#81adfa" : "inherit")};
   border-top: 1px solid grey;
 `;
 

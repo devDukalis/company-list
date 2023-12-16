@@ -1,21 +1,31 @@
 import { ChangeEvent, FC } from "react";
 
-import styledComponent from "styled-components";
+import { default as styled } from "styled-components";
 
 import Cell from "@/components/Table/Cell";
 
-const Input = styledComponent.input`
+const Input = styled.input`
   max-width: 150px;
 `;
 
-export interface Props {
+export interface EditableCellProps {
   isEditMode: boolean;
   value: string | number;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  id?: string;
 }
 
-const EditableCell: FC<Props> = ({ isEditMode, value, onChange }) => {
-  return <Cell>{isEditMode ? <Input value={value} onChange={onChange} /> : value}</Cell>;
+const EditableCell: FC<EditableCellProps> = ({ isEditMode, value, onChange, placeholder, id }) => {
+  return (
+    <Cell>
+      {isEditMode ? (
+        <Input value={value} onChange={onChange} placeholder={placeholder} id={id} />
+      ) : (
+        <div>{value}</div>
+      )}
+    </Cell>
+  );
 };
 
 export default EditableCell;

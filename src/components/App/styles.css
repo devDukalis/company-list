@@ -10,4 +10,6 @@
 
 #root {
   font-family: "PT-Sans-Regular", serif;
+  width: 100vw;
+  height: 100vh;
 }

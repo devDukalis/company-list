@@ -1,19 +1,23 @@
-import styledComponent from "styled-components";
+import { default as styled } from "styled-components";
 
 import MainTable from "@/components/MainTable";
+import Heading from "@/components/Heading";
 
-const PageWrapper = styledComponent.section`
-  padding: 50px;
+const PageWrapper = styled.section`
   width: 100vw;
   height: 100vh;
-  background-color: rgb(244, 241, 232);
+  padding: 50px;
+  background-color: rgb(45, 129, 224);
 `;
 
 const Main = () => {
   return (
-    <PageWrapper>
-      <MainTable />
-    </PageWrapper>
+    <>
+      <Heading />
+      <PageWrapper>
+        <MainTable />
+      </PageWrapper>
+    </>
   );
 };
 

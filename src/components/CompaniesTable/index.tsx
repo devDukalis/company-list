@@ -1,16 +1,25 @@
 import { useAppSelector } from "@/redux/hooks";
 import { allCompaniesInState } from "@/redux/selectors";
 
-import styledComponent from "styled-components";
+import { default as styled } from "styled-components";
 
 import CompanyRow from "@/components/CompaniesTable/CompanyRow";
 import Table from "@/components/Table";
 import CompanyHeader from "@/components/CompaniesTable/CompanyHeader";
 
-const LastRowWrapper = styledComponent.tbody`
+const LastRowWrapper = styled.tbody`
   position: sticky;
   bottom: 0px;
-  background-color: rgb(252, 251, 248);
+  background-color: #2a7cc4;
+  min-height: 100px;
+`;
+
+const Caption = styled.caption`
+  padding: 20px;
+  background-color: #2a7cc4;
+  font-size: 20px;
+  color: white;
+  border-bottom: 1px solid white;
 `;
 
 const CompaniesTable = () => {
@@ -18,12 +27,15 @@ const CompaniesTable = () => {
 
   return (
     <Table>
+      <Caption>Компании</Caption>
+
       <CompanyHeader />
       <tbody>
         {companiesArray.map((company) => (
-          <CompanyRow company={company} key={`${company.id}-main`} />
+          <CompanyRow company={company} key={`${company.id}-main`} id={company.id} />
         ))}
       </tbody>
+
       <LastRowWrapper>
         <CompanyRow />
       </LastRowWrapper>

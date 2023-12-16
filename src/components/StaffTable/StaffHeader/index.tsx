@@ -1,5 +1,7 @@
 import { ChangeEvent } from "react";
 
+import { default as styled } from "styled-components";
+
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectedCompaniesInState, selectedEmployeesInState } from "@/redux/selectors";
 import {
@@ -11,6 +13,14 @@ import {
 import Cell from "@/components/Table/Cell";
 import Head from "@/components/Table/Head";
 import HeaderRow from "@/components/Table/HeaderRow";
+
+import DeleteIcon from "../../../assets/icons/delete.svg?react";
+
+const ButtonWrapper = styled.button`
+  cursor: pointer;
+  background: transparent;
+  border: none;
+`;
 
 const StaffHeader = () => {
   const selectedCompanies = useAppSelector(selectedCompaniesInState);
@@ -39,9 +49,25 @@ const StaffHeader = () => {
   return (
     <Head>
       <HeaderRow>
-        <Cell>
+        <Cell
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            minWidth: "180px",
+            marginTop: "9px",
+          }}>
           {totalEmployeesAmount > 1 && (
-            <input type="checkbox" checked={checkboxChecked} onChange={checkboxClick} />
+            <>
+              <input
+                type="checkbox"
+                checked={checkboxChecked}
+                onChange={checkboxClick}
+                id="staff"
+                autoComplete="staffAll"
+              />
+              <label htmlFor="staff">Выделить все</label>
+            </>
           )}
         </Cell>
         <Cell>Имя</Cell>
@@ -49,9 +75,9 @@ const StaffHeader = () => {
         <Cell>Должность</Cell>
         <Cell>
           {selectedEmployees.length > 0 && (
-            <button type="button" onClick={deleteClick}>
-              Удалить
-            </button>
+            <ButtonWrapper onClick={deleteClick}>
+              <DeleteIcon width="30px" height="30px" />
+            </ButtonWrapper>
           )}
         </Cell>
       </HeaderRow>
