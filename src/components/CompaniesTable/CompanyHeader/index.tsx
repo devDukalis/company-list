@@ -8,8 +8,9 @@ import {
   selectAllCompanies,
 } from "@/redux/features/companySlice";
 
-import Row from "@/components/Table/Row";
 import Cell from "@/components/Table/Cell";
+import TableHead from "@/components/Table/Head";
+import HeaderRow from "@/components/Table/HeaderRow";
 
 const CompanyHeader = () => {
   const companiesArray = useAppSelector(allCompaniesInState);
@@ -27,8 +28,8 @@ const CompanyHeader = () => {
   };
 
   return (
-    <thead>
-      <Row>
+    <TableHead>
+      <HeaderRow>
         <Cell>
           {companiesArray.length > 1 && (
             <input type="checkbox" checked={checkboxChecked} onChange={checkboxClick} />
@@ -44,8 +45,8 @@ const CompanyHeader = () => {
             </button>
           )}
         </Cell>
-      </Row>
-    </thead>
+      </HeaderRow>
+    </TableHead>
   );
 };
 

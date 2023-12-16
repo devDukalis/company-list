@@ -15,6 +15,7 @@ import useForm from "@/hooks/useForm";
 import Row from "@/components/Table/Row";
 import Cell from "@/components/Table/Cell";
 import EditableCell from "@/components/Table/EditableCell";
+import ButtonsCell from "@/components/ButtonsCell";
 
 export interface Props {
   employee?: Employee;
@@ -103,7 +104,7 @@ const StaffRow: FC<Props> = ({ employee, companyId }) => {
         value={state.employment}
         onChange={changeFieldValue("employment")}
       />
-      <Cell onClick={saveClickHandler}>{isEditMode ? "Сохранить" : "Редактировать"}</Cell>
+      <ButtonsCell onClick={saveClickHandler} isEditMode={isEditMode} />
     </Row>
   );
 };

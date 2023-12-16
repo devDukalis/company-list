@@ -10,11 +10,12 @@ import {
 } from "@/redux/features/companySlice";
 
 import { Company } from "@/models";
+import useForm from "@/hooks/useForm";
 
 import Cell from "@/components/Table/Cell";
 import Row from "@/components/Table/Row";
 import EditableCell from "@/components/Table/EditableCell";
-import useForm from "@/hooks/useForm";
+import ButtonsCell from "@/components/ButtonsCell";
 
 export interface Props {
   company?: Company;
@@ -87,13 +88,13 @@ const CompanyRow: FC<Props> = ({ company }) => {
         value={state.title}
         onChange={changeFieldValue("title")}
       />
-      <Cell>{company?.staff?.length ?? 0}</Cell>
+      <Cell>{company?.staff?.length}</Cell>
       <EditableCell
         isEditMode={isEditMode}
         value={state.address}
         onChange={changeFieldValue("address")}
       />
-      <Cell onClick={buttonsCellClick}>{isEditMode ? "Сохранить" : "Редактировать"}</Cell>
+      <ButtonsCell isEditMode={isEditMode} onClick={buttonsCellClick} />
     </Row>
   );
 };
