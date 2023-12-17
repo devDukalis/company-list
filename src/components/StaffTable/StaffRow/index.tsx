@@ -18,17 +18,17 @@ import Cell from "@/components/Table/Cell";
 import EditableCell from "@/components/Table/EditableCell";
 import ButtonsCell from "@/components/ButtonsCell";
 
-export interface Props {
-  employee?: Employee;
-  companyId: ID;
-  style?: React.CSSProperties;
-}
-
 export interface EmployeeForm {
   firstName: string;
   lastName: string;
   employment: string;
   id: string;
+}
+
+export interface Props {
+  employee?: Employee;
+  companyId: ID;
+  style?: React.CSSProperties;
 }
 
 const StaffRow: FC<Props> = ({ employee, companyId }) => {
@@ -51,7 +51,7 @@ const StaffRow: FC<Props> = ({ employee, companyId }) => {
 
   const [isEditMode, setEditMode] = useState<boolean>(isAddEmployeeRow);
 
-  const checkboxClickHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxClick = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked;
     if (isAddEmployeeRow) return;
     if (value) {
@@ -61,7 +61,7 @@ const StaffRow: FC<Props> = ({ employee, companyId }) => {
     }
   };
 
-  const saveClickHandler = () => {
+  const handleButtonClick = () => {
     if (isAddEmployeeRow) {
       const toSend = {
         employee: {
@@ -98,19 +98,11 @@ const StaffRow: FC<Props> = ({ employee, companyId }) => {
           <input
             type="checkbox"
             checked={isSelected}
-            onChange={checkboxClickHandler}
+            onChange={handleCheckboxClick}
             id={`select-employee-${state.id}`}
           />
         )}
       </Cell>
-
-      <EditableCell
-        isEditMode={isEditMode}
-        value={state.firstName}
-        onChange={changeFieldValue("firstName")}
-        placeholder="Имя"
-        id={`select-fistName-${state.id}`}
-      />
 
       <EditableCell
         isEditMode={isEditMode}
@@ -122,13 +114,21 @@ const StaffRow: FC<Props> = ({ employee, companyId }) => {
 
       <EditableCell
         isEditMode={isEditMode}
+        value={state.firstName}
+        onChange={changeFieldValue("firstName")}
+        placeholder="Имя"
+        id={`select-fistName-${state.id}`}
+      />
+
+      <EditableCell
+        isEditMode={isEditMode}
         value={state.employment}
         onChange={changeFieldValue("employment")}
         placeholder="Должность"
         id={`select-employment-${state.id}`}
       />
 
-      <ButtonsCell onClick={saveClickHandler} isEditMode={isEditMode} />
+      <ButtonsCell onClick={handleButtonClick} isEditMode={isEditMode} />
     </Row>
   );
 };

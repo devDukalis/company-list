@@ -7,7 +7,6 @@ const TableWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  max-width: 95vw;
   margin: auto;
   align-items: flex-start;
   background-color: rgb(45, 129, 224);

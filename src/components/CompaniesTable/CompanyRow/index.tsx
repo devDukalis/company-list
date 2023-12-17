@@ -17,14 +17,14 @@ import Row from "@/components/Table/Row";
 import EditableCell from "@/components/Table/EditableCell";
 import ButtonsCell from "@/components/ButtonsCell";
 
-export interface Props {
-  company?: Company;
-  id?: string | number;
-}
-
 export interface CompanyForm {
   title: string;
   address: string;
+}
+
+export interface Props {
+  company?: Company;
+  id?: string | number;
 }
 
 const CompanyRow: FC<Props> = ({ company, id }) => {
@@ -45,7 +45,7 @@ const CompanyRow: FC<Props> = ({ company, id }) => {
 
   const [isEditMode, setEditMode] = useState<boolean>(isAddCompanyRow);
 
-  const checkboxClickHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxClick = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.checked;
 
     if (isAddCompanyRow) return;
@@ -57,7 +57,7 @@ const CompanyRow: FC<Props> = ({ company, id }) => {
     }
   };
 
-  const buttonsCellClick = () => {
+  const handleButtonClick = () => {
     if (isAddCompanyRow) {
       const newCompany = {
         ...state,
@@ -87,7 +87,7 @@ const CompanyRow: FC<Props> = ({ company, id }) => {
           <input
             type="checkbox"
             checked={isSelected}
-            onChange={checkboxClickHandler}
+            onChange={handleCheckboxClick}
             id={`company-select-checkbox-${id}`}
           />
         )}
@@ -111,7 +111,7 @@ const CompanyRow: FC<Props> = ({ company, id }) => {
         id={`company-address-edit-${id}`}
       />
 
-      <ButtonsCell isEditMode={isEditMode} onClick={buttonsCellClick} />
+      <ButtonsCell isEditMode={isEditMode} onClick={handleButtonClick} />
     </Row>
   );
 };

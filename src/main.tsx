@@ -7,7 +7,7 @@ import { store, persistor } from "@/redux/store";
 
 import App from "@/components/App";
 
-import "@/index.css";
+import "@/min-reset.css";
 
 const element = document.getElementById("root")!;
 

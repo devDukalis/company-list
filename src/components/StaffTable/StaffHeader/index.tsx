@@ -33,7 +33,7 @@ const StaffHeader = () => {
   );
   const checkboxChecked = selectedEmployees.length === totalEmployeesAmount;
 
-  const checkboxClick = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxClick = (e: ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
     if (checked) {
       dispatch(selectAllEmployees());
@@ -42,7 +42,7 @@ const StaffHeader = () => {
     }
   };
 
-  const deleteClick = () => {
+  const handleButtonClick = () => {
     dispatch(deleteSelectedEmployees());
   };
 
@@ -62,7 +62,7 @@ const StaffHeader = () => {
               <input
                 type="checkbox"
                 checked={checkboxChecked}
-                onChange={checkboxClick}
+                onChange={handleCheckboxClick}
                 id="staff"
                 autoComplete="staffAll"
               />
@@ -70,12 +70,16 @@ const StaffHeader = () => {
             </>
           )}
         </Cell>
-        <Cell>Имя</Cell>
+
         <Cell>Фамилия</Cell>
+
+        <Cell>Имя</Cell>
+
         <Cell>Должность</Cell>
+
         <Cell>
           {selectedEmployees.length > 0 && (
-            <ButtonWrapper onClick={deleteClick} style={{ marginRight: "5px" }}>
+            <ButtonWrapper onClick={handleButtonClick} style={{ marginRight: "5px" }}>
               <DeleteIcon width="25px" height="25px" />
             </ButtonWrapper>
           )}

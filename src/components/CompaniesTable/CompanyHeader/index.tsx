@@ -28,12 +28,12 @@ const CompanyHeader = () => {
   const checkboxChecked = companiesArray.length === selectedCompanies.length;
   const dispatch = useAppDispatch();
 
-  const checkboxClick = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxClick = (e: ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
     checked ? dispatch(selectAllCompanies()) : dispatch(deselectAllCompanies());
   };
 
-  const deleteClick = () => {
+  const handleButtonClick = () => {
     dispatch(deleteSelectedCompanies());
   };
 
@@ -53,7 +53,7 @@ const CompanyHeader = () => {
               <input
                 type="checkbox"
                 checked={checkboxChecked}
-                onChange={checkboxClick}
+                onChange={handleCheckboxClick}
                 id="company"
                 autoComplete="companiesAll"
               />
@@ -64,15 +64,13 @@ const CompanyHeader = () => {
 
         <Cell>Название</Cell>
 
-        <>
-          <Cell style={{ minWidth: "190px" }}>Кол-во сотрудников</Cell>
-        </>
+        <Cell style={{ minWidth: "190px" }}>Кол-во сотрудников</Cell>
 
         <Cell style={{ minWidth: "300px" }}>Адрес</Cell>
 
         <Cell>
           {selectedCompanies.length > 0 && (
-            <ButtonWrapper onClick={deleteClick} style={{ marginRight: "5px" }}>
+            <ButtonWrapper onClick={handleButtonClick} style={{ marginRight: "5px" }}>
               <DeleteIcon width="25px" height="25px" />
             </ButtonWrapper>
           )}

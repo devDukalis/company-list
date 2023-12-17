@@ -1,9 +1,4 @@
-import { FC } from "react";
 import { default as styled } from "styled-components";
-
-interface Props {
-  value?: string;
-}
 
 const HeadingWrapper = styled("div")`
   padding: 20px;
@@ -15,7 +10,11 @@ const HeadingWrapper = styled("div")`
   color: #ffffff;
 `;
 
-const Heading: FC<Props> = ({ value = "Список компаний" }) => {
+interface Props {
+  value?: string;
+}
+
+const Heading: React.FC<Props> = ({ value = "Список компаний" }) => {
   return (
     <HeadingWrapper>
       <h1>{value}</h1>

@@ -9,7 +9,7 @@ const Input = styled.input`
   min-height: 30px;
 `;
 
-export interface EditableCellProps {
+export interface Props {
   isEditMode: boolean;
   value: string | number;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -18,14 +18,7 @@ export interface EditableCellProps {
   style?: React.CSSProperties;
 }
 
-const EditableCell: FC<EditableCellProps> = ({
-  isEditMode,
-  value,
-  onChange,
-  placeholder,
-  id,
-  style,
-}) => {
+const EditableCell: FC<Props> = ({ isEditMode, value, onChange, placeholder, id, style }) => {
   return (
     <Cell style={{ ...style }}>
       {isEditMode ? (
