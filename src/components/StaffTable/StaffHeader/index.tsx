@@ -75,8 +75,8 @@ const StaffHeader = () => {
         <Cell>Должность</Cell>
         <Cell>
           {selectedEmployees.length > 0 && (
-            <ButtonWrapper onClick={deleteClick}>
-              <DeleteIcon width="30px" height="30px" />
+            <ButtonWrapper onClick={deleteClick} style={{ marginRight: "5px" }}>
+              <DeleteIcon width="25px" height="25px" />
             </ButtonWrapper>
           )}
         </Cell>

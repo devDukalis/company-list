@@ -6,6 +6,7 @@ import Cell from "@/components/Table/Cell";
 
 const Input = styled.input`
   max-width: 150px;
+  min-height: 30px;
 `;
 
 export interface EditableCellProps {
@@ -14,11 +15,19 @@ export interface EditableCellProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   id?: string;
+  style?: React.CSSProperties;
 }
 
-const EditableCell: FC<EditableCellProps> = ({ isEditMode, value, onChange, placeholder, id }) => {
+const EditableCell: FC<EditableCellProps> = ({
+  isEditMode,
+  value,
+  onChange,
+  placeholder,
+  id,
+  style,
+}) => {
   return (
-    <Cell>
+    <Cell style={{ ...style }}>
       {isEditMode ? (
         <Input value={value} onChange={onChange} placeholder={placeholder} id={id} />
       ) : (

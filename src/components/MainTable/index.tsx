@@ -19,9 +19,7 @@ const TableScrollWrapper = styled.div`
   height: 100%;
   overflow-y: auto;
   position: relative;
-  flex: 0 0 50%;
   background-color: #fff;
-  border-radius: 10px;
 `;
 
 const MainTable = () => {

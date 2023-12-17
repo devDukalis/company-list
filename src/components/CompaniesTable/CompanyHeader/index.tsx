@@ -61,15 +61,19 @@ const CompanyHeader = () => {
             </>
           )}
         </Cell>
+
         <Cell>Название</Cell>
+
         <>
           <Cell style={{ minWidth: "190px" }}>Кол-во сотрудников</Cell>
         </>
-        <Cell>Адрес</Cell>
+
+        <Cell style={{ minWidth: "300px" }}>Адрес</Cell>
+
         <Cell>
           {selectedCompanies.length > 0 && (
-            <ButtonWrapper onClick={deleteClick}>
-              <DeleteIcon width="30px" height="30px" />
+            <ButtonWrapper onClick={deleteClick} style={{ marginRight: "5px" }}>
+              <DeleteIcon width="25px" height="25px" />
             </ButtonWrapper>
           )}
         </Cell>

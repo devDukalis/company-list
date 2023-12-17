@@ -82,12 +82,7 @@ const CompanyRow: FC<Props> = ({ company, id }) => {
 
   return (
     <Row selected={isSelected}>
-      <Cell
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "20px",
-        }}>
+      <Cell>
         {!isAddCompanyRow && (
           <input
             type="checkbox"
@@ -105,7 +100,9 @@ const CompanyRow: FC<Props> = ({ company, id }) => {
         placeholder="Название"
         id={`company-title-edit-${id}`}
       />
+
       <Cell>{company?.staff?.length}</Cell>
+
       <EditableCell
         isEditMode={isEditMode}
         value={state.address}
@@ -113,6 +110,7 @@ const CompanyRow: FC<Props> = ({ company, id }) => {
         placeholder="Адрес"
         id={`company-address-edit-${id}`}
       />
+
       <ButtonsCell isEditMode={isEditMode} onClick={buttonsCellClick} />
     </Row>
   );
